@@ -1,0 +1,295 @@
+{include h}
+<div class="wp cl">
+    {include r_m}
+  <div id="ct" class="plate_mn postcontbox_mn">
+    <div id="postlist" class="pl bm wp_postlist">
+
+      <div class="item_postlist firstitem_postlist graybar_postlist">
+        <table  cellspacing="0" cellpadding="0">
+
+          <tbody>
+            <tr>
+
+              <td class="plc" colspan="2">
+                <div class="thread_postlist">
+
+                  <div class="posttitlewrap">
+                    <div class="avatar head_uinfo">
+                      <img src="{#WWW}{$thread_data.avatar.b}">
+                    </div>
+                    <div class="posttitle">
+                      <a title="{$thread_data.title}">
+                        {$thread_data.title}
+                      </a>
+                    </div>
+                  </div>
+                  <div class="pi infobar_post">
+
+                    <div class="barr_post">
+                      <span class="xi1">
+                        {$thread_data.posts}
+                      </span>
+                      <span class="replyicon_uinfo">
+                      </span>
+                      <span class="xi1">
+                        {$thread_data.views}
+                      </span>
+                      <span class="readicon_uinfo">
+                      </span>
+                      <span >
+                        <span >
+                          {php echo humandate($thread_data['atime']);}
+                        </span>
+                      </span>
+                    </div>
+                    <div class="pti barl_post">
+                      <div class="pdbt">
+                      </div>
+                      <div class="authi">
+                        <a class="name_uinfo" href="{php echo WWW.URL('my',$thread_data['user']);}" target="_blank"
+                        title="{$thread_data.user}">
+                          {$thread_data.user}
+                        </a>
+                        <em class="userlevel_uinfo">
+                          <a href="home.php?mod=spacecp&amp;ac=usergroup&amp;gid=10" target="_blank"
+                          class="mzpower">
+                          用户组占位
+                          </a>
+                          <span class="cr">
+
+                          </span>
+                        </em>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="pct postcont_postlist fontsizelimit">
+                    <div class="pcb">
+                      <div class="t_fsz">
+                        <table cellspacing="0" cellpadding="0">
+                          <tbody>
+                            <tr>
+                              <td class="t_f">
+                                <div>
+                                  {$post_data.content}
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+
+            <tr>
+              <td colspan="2" class="plc cbar_postlist">
+
+                <div class="po cbarbox_postlist">
+                  <!--删除的帖子不显示-->
+                  <div class="pob" style="    text-align: right;">
+
+                    <a  class=" fastre " onclick="tp('thread1',{$thread_data.id},this)">
+
+                        支持
+                        <span>{$thread_data.goods}</span>
+                    </a>
+                    <a class="support_oppose" onclick="tp('thread2',{$thread_data.id},this)">
+
+                        反对
+                        <span>{$thread_data.nos}</span>
+                    </a>
+
+
+                  </div>
+                </div>
+
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+
+
+      </div>
+    </div>
+    <div class="pl replypost_postlist">
+
+        {foreach $PostList as $k => $v}
+      <div class="item_postlist graybar_postlist">
+        <table cellspacing="0" cellpadding="0">
+          <colgroup>
+            <col width="64px">
+              <col width="594px">
+          </colgroup>
+          <tbody>
+            <tr>
+              <td class="pls" rowspan="2">
+
+                <div>
+                  <div class="avatar head_uinfo">
+                    <img src="{#WWW}{$v.avatar.b}">
+                    <span class="shadowbox_avatar">
+                    </span>
+                  </div>
+                </div>
+              </td>
+              <td class="plc">
+                <div class="pi infobar_post">
+
+                  <div class="barr_post">
+                    <strong class="z floor_infobar">
+                      <a >
+                        {php echo ($k+(($pageid-1)*10))+1  ;} 楼
+                      </a>
+                    </strong>
+                  </div>
+                  <div class="pti barl_post">
+                    <div class="pdbt">
+                    </div>
+                    <div class="authi">
+                      <a class="name_uinfo" href="{php echo WWW.URL('my',$v['user']);}" title="{$v.user}">
+                        {$v.user}
+                      </a>
+                      <em class="userlevel_uinfo">
+
+                        <a href="home.php?mod=spacecp&amp;ac=usergroup&amp;gid=14" target="_blank"
+                        class="mzpower">
+                          <font color="#999999">
+                            用户组
+                          </font>
+                        </a>
+                        <span class="cr">
+                        </span>
+                      </em>
+                      <span >
+                        <span >
+                          {$v.atime_str}
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="pct postcont_postlist fontsizelimit">
+                  <div class="pcb">
+                    <div class="t_fsz">
+                      <table cellspacing="0" cellpadding="0">
+                        <tbody>
+                          <tr>
+                            <td class="t_f" id="postmessage_132056685">
+                              <div>
+                                {$v.content}
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="plc plm">
+              </td>
+            </tr>
+            <tr>
+              <td class="pls">
+              </td>
+              <td class="plc cbar_postlist">
+
+                <div class="po cbarbox_postlist">
+                    <div class="pob" style="    text-align: right;">
+                      <a href="javascript:void(0);" class="fastre" >
+                        回复
+                      </a>
+                      <a href="javascript:void(0);" class="support_oppose" onclick="tp('post1',{$v.id},this)" >
+
+                          支持
+                          <span>{$v.goods}</span>
+
+                      </a>
+                      <a href="javascript:void(0);" class="support_oppose" onclick="tp('post2',{$v.id},this)">
+
+                          反对
+                          <span>{$v.nos}</span>
+
+                      </a>
+                  </div>
+                </div>
+
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+
+      </div>
+      {/foreach}
+
+      <div class="footdiv_post">
+
+
+        <div class="pgs mtm mbm cl pagebar">
+          <span class="y">
+            <a onclick="javascript :history.go(-1);" class="graybtn normalbtn" >
+              返回
+            </a>
+          </span>
+          <div class="pg">
+            <a class="prev {if $pageid==1}disprev{/if}" href="{if $pageid==1}javascript:void(0);{else}{php echo WWW.URL('thread',$thread_data['id'],EXP . ($pageid-1));}{/if}">
+              <em class="previcon">
+              </em>
+            </a>
+            <a class="nxt {if $pageid==$page_count}disnxt{/if}" href="{if $pageid==$page_count}javascript:void(0);{else}{php echo WWW.URL('thread',$thread_data['id'],EXP . ($pageid+1));}{/if}" >
+              <em class="nxticon">
+              </em>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div id="f_pst" class="pl bm bmw replybox_post" style="position: relative;overflow: hidden;">
+
+        {if !IS_LOGIN}
+        <div class="cl">
+          <div id="fastposteditor">
+            <div class="tedt mtn">
+
+              <div class="area defaulttext_area ">
+                <div class="pt hm tipbox_login" id="tipBoxLogin">
+                  您需要登录后才能回复&nbsp;&nbsp;&nbsp;
+                  <a href="{#WWW}user{#EXP}login" class="xi2">
+                    登录
+                  </a>
+                  <a class="separator">
+                  </a>
+                  <a href="{#WWW}user{#EXP}add" class="xi2">
+                    立刻注册
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {else}
+
+        <p class="ptm pnpost cl"  style="margin:0 0;">
+          <a class="normalbtn bluebtn" style="width:100%;margin-left:0;float:none">
+            <button type="button" onclick="show_post_post({$thread_data.id})" class="pn vm " style="width:100%">
+              发表回复
+            </button>
+          </a>
+        </p>
+        {/if}
+
+
+    </div>
+  </div>
+
+</div>
+{include f}

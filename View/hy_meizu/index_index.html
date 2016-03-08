@@ -1,0 +1,105 @@
+{include h}
+<div class="boardnav">
+  <div id="ct" class="wp cl">
+    {include r_m}
+    <div class="mn plate_mn">
+
+      <div id="threadlist" class="tl bm bmw">
+        <div class="th">
+          <table cellspacing="0" cellpadding="0">
+            <tbody>
+              <tr>
+                <th class="filbarwrap_thread" colspan="2">
+                  <div class="tf filterbar_thread cl">
+                    <a href="{#WWW}" class="xi2 ">
+                      全部
+                    </a>
+                    <span class="pipe2">
+                    </span>
+                    <a href="{php echo WWW.URL('btime','');}"
+                    class="xi2 ">
+                      最新回复
+                    </a>
+
+
+                  </div>
+                </th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="bm_c">
+
+            <table cellspacing="0" cellpadding="0"
+            >
+            {foreach $data as $v}
+            <tbody class="">
+              <tr>
+                <td class="userhead">
+                  <a class="avatar"  href="{php echo WWW.URL('my',$v['user']);}">
+                    <img src="{#WWW}{$v.avatar.b}">
+                    <span class="shadowbox_avatar">
+                    </span>
+                  </a>
+                </td>
+                <th class="lock padding0 itemcont_threadlist">
+                  <div class="maincont_list">
+                    <!--隐藏置定图片-->
+                    <!-- <img class="pin_icon"src="http://bbs.res.meizu.com/resources/php/bbs/static/image/common/pin_s.gif"
+                    alt="全局置顶" title="全局置顶" /> -->
+
+                    <a href="{php echo WWW.URL('thread','',EXP.$v['id']);}" class="xst " title="{$v.title}">
+                      {$v.title}
+                    </a>
+
+                    <span class="cr">
+                    </span>
+                  </div>
+                </th>
+                <td class="latestreply_list">
+                  <span>
+                    <a href="{php echo WWW.URL('thread','',EXP.$v['id']);}" class="author_list">
+                        {if isset($v['buser'])}
+                        {$v.buser}
+                        {else}
+                        {$v.user}
+                        {/if}
+
+                    </a>
+                  </span>
+                  <br>
+                  <span class="date_list">
+                    <span>
+                      {php echo humandate($v['btime']);}
+                    </span>
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+            {/foreach}
+
+            </table>
+
+        </div>
+        <div class="bm bw0 pgs cl pagebar">
+          <span id="fd_page_bottom">
+            <div class="pg">
+              <a class="prev {if $pageid==1}disprev{/if}" href="{if $pageid==1}javascript:void(0);{else}{php echo WWW.URL($type,$pageid-1);}{/if}">
+                <em class="previcon">
+                </em>
+              </a>
+
+              <a class="nxt {if $pageid==$page_count}disnxt{/if}" href="{if $pageid==$page_count}javascript:void(0);{else}{php echo WWW.URL($type,$pageid+1);}{/if}">
+                <em class="nxticon ">
+                </em>
+              </a>
+            </div>
+          </span>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{include f}

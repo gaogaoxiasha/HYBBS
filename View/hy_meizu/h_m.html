@@ -1,0 +1,75 @@
+<div id="hd">
+	<div id="w_header">
+		<div id="nav" class="nav">
+			<div class="meizu-header">
+				<div class="meizu-header-wrap">
+					<div class="meizu-header-logo">
+						<a href="{#WWW}" class="meizu-header-logo-img" style="    font-size: 34px;">HYBBS</a>
+					</div>
+					<div class="meizu-header-content">
+						<ul class="meizu-header-link">
+
+							<li>
+							<a href="{#WWW}" target="_blank">导航预留</a>
+							</li>
+                            <li>
+
+                            {if !IS_LOGIN}
+                            <li>
+							<a href="{#WWW}user{#EXP}login">登录</a>
+							</li>
+                            <li>
+							<a href="{#WWW}user{#EXP}add">注册</a>
+							</li>
+                            {/if}
+						</ul>
+                        {if IS_LOGIN}
+						<div class="login-box" id="mzCust" attribute="1" rel="">
+							<div class="loginArea" style="position: relative;">
+
+								<a href="{php echo WWW.URL('my',$user['user']);}" class="log-img-box">
+									<img src="{#WWW}{$user.avatar.c}" alt="log" class="user-avatar">
+								</a>
+
+
+							</div>
+						</div>
+                        {/if}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="wp">
+		<div id="nv">
+			<ul>
+				<li class="{$left_menu.index}"><a href="{#WWW}">首页</a></li>
+				<li class="separator "></li>
+				<li class="{$left_menu.forum}"><a href="<?php echo WWW.URL('forum','',''); ?>">版块</a></li>
+
+
+			</ul>
+
+		</div>
+		<div id="mu" class="cl" style="display:none;">
+		</div>
+		<div id="scbar" class="cl">
+			<form  method="post" action="{#WWW}search"  target="_blank">
+				<input type="hidden" name="mod" id="scbar_mod" value="search">
+				<input type="hidden" name="formhash" value="dd98e539">
+				<input type="hidden" name="srchtype" value="title">
+				<input type="hidden" name="srhfid" value="22">
+				<input type="hidden" name="srhlocality" value="forum::forumdisplay">
+				<div class="scbar_wrap">
+					<input type="text" name="srchtxt" id="scbar_txt" value="" autocomplete="off" class=" xg1" placeholder="搜索话题和用户">
+					<button type="button" id="scbar_btn" onclick="window.location.href='{#WWW}search'+exp+$('#scbar_txt').val();"></button>
+				</div>
+			</form>
+		</div>
+
+
+
+		<div class="cr">
+		</div>
+	</div>
+</div>

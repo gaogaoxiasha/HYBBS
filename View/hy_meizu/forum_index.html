@@ -1,0 +1,21 @@
+{include h}
+<div id="wp" class="wp">
+    <div class="content_par">
+        <div class="content">
+            <div class="c_list">
+            <h3>板块</h3>
+            <ul class="c_cate clearfix">
+            {foreach $data as $v}
+            <li> <a href="<?php echo WWW.URL('forum','',EXP.$v['id']); ?>">
+            <i class="cc_logo"> <img src="{#WWW}View/hy_meizu/css/mess.png" align="left" alt="" width="97" height="97">
+            </i> <strong>{$v.name}</strong>
+            <p>板块说明</p>
+            </a>
+            </li>
+            {/foreach}
+            </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{include f}

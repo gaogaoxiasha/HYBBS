@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="HYPHP,PHP框架,HYPHP框架" />
+<meta name="description" content="HYPHP框架，轻盈的MVC框架" />
+
+<link href="./public/admin/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<link href="./public/admin/css/docs.min.css" rel="stylesheet">
+<style>
+.box {
+    padding: 10px;
+    background-color: #FFF;
+    border: 1px solid #E3E3E3;
+    box-shadow: 1px 2px 17px #D8D8D8;
+    margin-bottom: 50px;
+}
+</style>
+<title>
+    HY PHP框架
+</title>
+
+</head>
+<body>
+    <div class="bs-docs-header" id="content" tabindex="-1">
+        <div class="container">
+            <h1>HY BBS 安装程序</h1>
+            <p>
+                轻松几步加入HYBBS
+            </p>
+        </div>
+    </div>
+    <div class="container bs-docs-container">
+
+        <div class="col-md-12 box">
+            <div class="alert alert-warning" role="alert">你的服务器配置需要满足以下条件</div>
+            <div class="list-group">
+              <a href="#" class="list-group-item list-group-item-{if class_exists("PDO")}success{else}danger{/if}">PHP_PDO</a>
+              <a href="#" class="list-group-item list-group-item-{if version_compare(PHP_VERSION,'5.3.0','<')}danger{else}success{/if}">PHP 5.3+</a>
+              <a href="#" class="list-group-item list-group-item-{if is_writable(INDEX_PATH . 'Conf/config.php')}success{else}danger{/if}">写入权限</a>
+              <a href="#" class="list-group-item list-group-item-{if is_readable(INDEX_PATH . 'Conf/config.php')}success{else}danger{/if}">读取权限</a>
+
+            </div>
+
+            <form action="./Install<?php echo C("url_explode"); ?>ing" method="post">
+                <h1>数据库配置</h1>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">数据库 类型</label>
+                    <select name="sqltype" class="form-control">
+                      <option value="mysql">MySQL</option>
+                      <option value="mssql">MsSQL</option>
+                      <option value="oracle">Oracle</option>
+                      <option value="sqlite">SQLite</option>
+                      <option value="PostgreSQL">PostgreSQL</option>
+                      <option value="Sybase">Sybase</option>
+                    </select>
+                </div>
+              <div class="form-group">
+                <label for="exampleInputEmail1">数据库 IP</label>
+                <input type="text" name="ip" class="form-control" value="localhost">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputEmail1">数据库名</label>
+                <input type="text" name="name" class="form-control" value="">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">数据库 账号</label>
+                <input type="text" name="user" class="form-control" value="root">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">数据库 密码</label>
+                <input type="password" name="pass" class="form-control" >
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">数据库 端口</label>
+                <input type="text" name="port" class="form-control" value="3306">
+              </div>
+              <h1>网站管理配置</h1>
+              <div class="form-group">
+                <label for="exampleInputPassword1">网站链接 (无需更改, Config.php中可更改)</label>
+                <input type="text" name="www" id="www" class="form-control" value="">
+              </div>
+              <script>
+              document.getElementById("www").value = window.location.href.replace("/install.html","").replace("/install","");
+
+              </script>
+              <div class="form-group">
+                <label for="exampleInputPassword1">管理员账号</label>
+                <input type="text" name="username" class="form-control" value="admin">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">管理员密码</label>
+                <input type="password" name="password" class="form-control" value="">
+              </div>
+              <button type="submit" class="btn btn-success">安装</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

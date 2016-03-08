@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  	<head>
+	    <meta charset="utf-8">
+	    <title>QQ绑定{$conf.title2}</title>
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <meta name="description" content="">
+	    <meta name="author" content="">
+
+
+	    <link href="{#WWW}public/admin/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<link href="{#WWW}public/admin/css/font-awesome.min.css" rel="stylesheet">
+		<link href="{#WWW}public/admin/css/simplify.min.css" rel="stylesheet">
+
+  	</head>
+
+  	<body class="overflow-hidden light-background">
+		<div class="wrapper no-navigation preload">
+			<div class="sign-in-wrapper">
+				<div class="sign-in-inner">
+					<div class="login-brand text-center">
+						<i class="fa fa-qq m-right-xs"></i> QQ完善账号 <strong class="text-skin">HYBBS</strong>
+					</div>
+
+					<form method="post">
+						<div class="user-widget user-widget2">
+								<div class="user-widget-body bg-success">
+									<img src="{$arr.figureurl_2}" alt="">
+									<div class="user-detail">
+										<div class="m-top-sm">{$arr.nickname}</div>
+										<div class="small-text text-white">{$arr.gender}</div>
+									</div>
+								</div>
+
+							</div>
+
+						<div class="form-group m-bottom-md">
+							<label>帐号</label>
+							<input type="text" name="user" class="form-control">
+						</div>
+						<div class="form-group">
+							<label>密码</label>
+							<input type="password" name="pass" class="form-control" >
+						</div>
+						<div class="m-top-md p-top-sm">
+							<button style="width:100%" type="submit" class="btn btn-success block">绑定</button>
+						</div>
+                        <div class="m-top-md p-top-sm">
+							<div class="font-12 text-center m-bottom-xs">你没有注册过?</div>
+							<a href="{#WWW}user{#EXP}qqadd" class="btn btn-default block">前去注册并绑定</a>
+						</div>
+
+
+
+					</form>
+				</div><!-- ./sign-in-inner -->
+			</div><!-- ./sign-in-wrapper -->
+		</div><!-- /wrapper -->
+
+		<a href="" id="scroll-to-top" class="hidden-print"><i class="icon-chevron-up"></i></a>
+
+		<script src="{#WWW}public/admin/js/jquery-1.11.1.min.js"></script>
+	    <script src="{#WWW}public/admin/bootstrap/js/bootstrap.min.js"></script>
+
+
+
+  	</body>
+</html>

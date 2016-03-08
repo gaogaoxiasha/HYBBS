@@ -1,0 +1,15 @@
+
+<div class="c-right-user" style="padding:10px">
+<label>QQ群 <span></span></label>
+<input type="text" class="text tipso_style" value="193620421">
+<style>
+.c-right-user{
+        height: 191px;
+}
+</style>
+</div>
+
+<div class="c-right-user" style="padding:10px">
+<label>运行耗时:<?php echo number_format(microtime(1) - $GLOBALS['START_TIME'], 4); ?> s</label>
+
+</div>

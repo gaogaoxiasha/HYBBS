@@ -1,0 +1,103 @@
+{include h}
+
+<div class="dashboard-header">
+	<p class="sub-title">
+		用户中心 - HYBBS
+	</p>
+	<p class="tip">
+		亲爱的 <a target="_blank" href="http://127.0.0.1/wp/author/1/">{$data.user}</a> 欢迎回来。
+	</p>
+</div>
+<div class="dashboard-wrapper select-index">
+	<div class="briefly">
+		<ul>
+			<li class="post">
+			<div class="visual">
+				<i class="fa fa-tasks"></i>
+			</div>
+			<div class="number">
+				{$data.threads}<span>文章作品</span>
+			</div>
+			<div class="more">
+				<a href="{php echo WWW.URL('my',$data['user'],EXP.'thread');}">查看更多<i class="fa fa-arrow-circle-right"></i></a>
+			</div>
+			</li>
+			<li class="photo">
+			<div class="visual">
+				<i class="fa fa-heart"></i>
+			</div>
+			<div class="number">
+				0<span>我的收藏</span>
+			</div>
+			<div class="more">
+				<a href="{php echo WWW.URL('my',$data['user'],EXP.'thread');}">查看更多<i class="fa fa-arrow-circle-right"></i></a>
+			</div>
+			</li>
+			<li class="credit">
+			<div class="visual">
+				<i class="fa fa-money"></i>
+			</div>
+			<div class="number">
+				{$data.gold}<span>我的金钱</span>
+			</div>
+			<div class="more">
+				<a href="{php echo WWW.URL('my',$data['user'],EXP.'thread');}">查看更多<i class="fa fa-arrow-circle-right"></i></a>
+			</div>
+			</li>
+			<li class="comments">
+			<div class="visual">
+				<i class="fa fa-comments"></i>
+			</div>
+			<div class="number">
+				{$data.posts}<span>评论留言</span>
+			</div>
+			<div class="more">
+				<a href="{php echo WWW.URL('my',$data['user'],EXP.'post');}">查看更多<i class="fa fa-arrow-circle-right"></i></a>
+			</div>
+			</li>
+		</ul>
+	</div>
+	<div class="summary">
+		<div class="box">
+			<div class="title">
+				我的最近发布
+			</div>
+			<ul>
+                {foreach $thread_data as $v}
+				<li><a href="{php echo WWW.URL('thread','',EXP.$v['id']);}" target="_blank">{$v.title}</a></li>
+                {/foreach}
+
+			</ul>
+		</div>
+		<div class="box">
+			<div class="title">
+				我的最近评论
+			</div>
+			<ul>
+                {foreach $post_data as $v}
+				<li><a href="{php echo WWW.URL('thread','',EXP.$v['tid']);}" target="_blank">{$v.content}</a></li>
+                {/foreach}
+
+			</ul>
+		</div>
+	</div>
+	<div class="fast-navigation">
+		<div class="nav-title">
+			快捷菜单
+		</div>
+		<ul>
+			<li><a target="_blank" href="{php echo WWW.URL('my',$data['user'],EXP.'');}"><i class="fa fa-home"></i>我的主页</a></li>
+
+			<li>
+			<a href="{php echo WWW.URL('my',$data['user'],EXP.'post');}">
+			<i class="fa fa-pencil-square-o"></i>发布文章</a></li>
+
+
+			<li><a href="{php echo WWW.URL('my',$data['user'],EXP.'op');}"><i class="fa fa-cog"></i>修改资料</a></li>
+			<li><a href="{#WWW}user{#EXP}out"><i class="fa fa-power-off"></i>注销登录</a></li>
+		</ul>
+	</div>
+</div>
+
+
+{include f}

@@ -1,0 +1,95 @@
+{include h}
+<div class="dashboard-header">
+<p class="sub-title">个人资料</p>
+<p class="tip">Hi，<a title="我的主页" href="{php echo WWW.URL('my',$data['user'],'');}">admin</a>，请如实填写以下内容，让大家更好的交流互动。</p>
+<!-- Page global message -->
+</div>
+
+<div class="dashboard-wrapper select-profile">
+	<div id="profile">
+		<ul class="user-msg">
+			<li class="tip">{$data.user} 来 HYBBS 已经<?php echo diffBetweenTwoDays($data['atime'],NOW_TIME); ?>天了</li>
+		</ul>
+		<table id="author-profile">
+		<tbody>
+
+		<tr>
+			<td class="title">
+				用户名:
+			</td>
+			<td>
+				admin
+			</td>
+		</tr>
+
+		<tr>
+			<td class="title">
+				个人说明:
+			</td>
+    		<td>
+    		</td>
+		</tr>
+		</tbody>
+		</table>
+        <form class="form-horizontal" action="{php echo WWW.URL('user','ava','');}" method="post" enctype="multipart/form-data">
+            <div class="page-header">
+				<h3 id="info">修改头像 <small></small></h3>
+			</div>
+            <div class="form-group">
+				<label class="col-sm-3 control-label">头像</label>
+				<div class="col-sm-9">
+					<div class="radio">
+						<img style="display:block" src="{#WWW}{$data.avatar.a}" class="avatar avatar-80" height="80" width="80"><label>
+
+
+					</div>
+
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="display_name" class="col-sm-3 control-label">选择头像文件</label>
+				<div class="col-sm-9">
+
+					<input class="" type="file" name="photo" />
+
+
+				</div>
+			</div>
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-9">
+                    <button type="submit" class="btn btn-success">上传头像</button>
+                </div>
+            </div>
+
+        </form>
+		<form action="{php echo WWW.URL('user','edit','');}" class="form-horizontal" role="form" method="post">
+			<div class="page-header">
+				<h3>账号安全 <small></small></h3>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label">新密码</label>
+				<div class="col-sm-9">
+					<input type="password" class="form-control" name="pass1">
+					<span class="help-block">如果您想修改您的密码，请在此输入新密码。不然请留空。</span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">重复新密码</label>
+				<div class="col-sm-9">
+					<input type="password" class="form-control" name="pass2">
+					<span class="help-block">再输入一遍新密码。</span>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-3 col-sm-9">
+					<button type="submit" class="btn btn-success">保存更改</button>
+				</div>
+			</div>
+		</form>
+
+
+
+	</div>
+</div>
+{include f}

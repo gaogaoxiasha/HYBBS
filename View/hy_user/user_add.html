@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {hook t_header}
+	<title>{$title}{$conf.title2}</title>
+	<link href="{#WWW}View/hy_user/css/login2.css" rel="stylesheet">
+    <link href="{#WWW}public/css/alert.css" rel="stylesheet">
+    <!-- <link href="{#WWW}/public/css/font-awesome.min.css" type="text/css" rel="stylesheet" /> -->
+    <script src="{#WWW}public/js/jquery.min.js"></script>
+    <script src="{#WWW}public/js/sweet-alert.min.js"></script>
+    {hook t_header_1}
+    <script>
+    var www = "{#WWW}";
+    </script>
+	</head>
+  <body>
+      <div class="bj"></div>
+      <div class="login" style="margin-top:50px;">
+	<div class="header">
+		<div class="switch" id="switch">
+			<a class="switch_btn_focus" id="switch_qlogin" href="javascript:void(0);" tabindex="7">快速登录</a>
+			<a class="switch_btn" id="switch_login" href="javascript:void(0);" tabindex="8">快速注册</a>
+			<div class="switch_bottom" id="switch_bottom" style="position: absolute; width: 70px; left: 0px;">
+			</div>
+		</div>
+	</div>
+	<div class="web_qr_login" id="web_qr_login" style="display: block; height: 235px;">
+		<!--登录-->
+		<div class="web_login" >
+			<div class="login-box">
+				<div class="login_form">
+					<form action="{#WWW}user{#EXP}login" id="loginuser" name="loginform" accept-charset="utf-8" class="loginForm" method="post">
+                        {hook t_user_login_4}
+						<div class="uinArea" >
+							<label class="input-tips" for="u">帐号：</label>
+							<div class="inputOuter">
+								<input type="text"  name="user" class="inputstyle">
+							</div>
+						</div>
+						<div class="pwdArea" >
+							<label class="input-tips" for="p">密码：</label>
+							<div class="inputOuter" >
+								<input type="password" name="pass" class="inputstyle">
+							</div>
+						</div>
+                        {hook t_user_login_5}
+						<div style="padding-left:50px;margin-top:20px;">
+							<input type="submit" id="login" value="登 录" style="width:150px;" class="button_blue">
+                            <a href="{#WWW}" class="zcxy">返回首页</a>
+						</div>
+
+					</form>
+				</div>
+			</div>
+		</div>
+		<!--登录end-->
+	</div>
+	<!--注册-->
+	<div class="qlogin" id="qlogin" style="display: none;">
+		<div class="web_login">
+			<form name="form2" id="reguser" accept-charset="utf-8" action="{#WWW}user{#EXP}add" method="post">
+				<ul class="reg_form" id="reg-ul">
+                    {hook t_user_login_6}
+					<li>
+					<label for="user" class="input-tips2">用户名：</label>
+					<div class="inputOuter2">
+						<input type="text"  name="user" class="inputstyle2">
+					</div>
+					</li>
+                    <li>
+					<label for="user" class="input-tips2">邮箱：</label>
+					<div class="inputOuter2">
+						<input type="text"  name="email" class="inputstyle2">
+					</div>
+					</li>
+					<li>
+					<label for="passwd" class="input-tips2">密码：</label>
+					<div class="inputOuter2">
+						<input type="password" name="pass1" class="inputstyle2">
+					</div>
+					</li>
+					<li>
+					<label for="passwd2" class="input-tips2">确认密码：</label>
+					<div class="inputOuter2">
+						<input type="password" name="pass2" class="inputstyle2">
+					</div>
+					</li>
+                    {hook t_user_login_7}
+					<li>
+					<div class="inputArea">
+						<input type="button" id="reg" style="margin-top:10px;margin-left:85px;" class="button_blue" value="同意协议并注册">
+                        <a href="{#WWW}" class="zcxy">返回首页</a>
+					</div>
+					</li>
+					<div class="cl">
+					</div>
+				</ul>
+			</form>
+		</div>
+	</div>
+
+</div>
+<script>
+$(function(){
+
+	$('#switch_qlogin').click(function(){
+		$('#switch_login').removeClass("switch_btn_focus").addClass('switch_btn');
+		$('#switch_qlogin').removeClass("switch_btn").addClass('switch_btn_focus');
+		$('#switch_bottom').animate({left:'0px',width:'70px'});
+		$('#qlogin').css('display','none');
+		$('#web_qr_login').css('display','block');
+
+		});
+	$('#switch_login').click(function(){
+
+		$('#switch_login').removeClass("switch_btn").addClass('switch_btn_focus');
+		$('#switch_qlogin').removeClass("switch_btn_focus").addClass('switch_btn');
+		$('#switch_bottom').animate({left:'154px',width:'70px'});
+
+		$('#qlogin').css('display','block');
+		$('#web_qr_login').css('display','none');
+		});
+
+
+	});
+
+
+
+$(document).ready(function() {
+    $('#loginuser').submit(function() {return false;});
+    $('#reguser').submit(function() {return false;});
+
+    $("#login").click(function(){
+        var postdata = $('#loginuser').serialize();
+        $.post("{#WWW}user{#EXP}login", postdata,  function(e){
+            swal(e.error ? "登录成功 - 正在为你跳转" : "登录失败", e.info, e.error ? "success" : "error");
+            if(e.error){
+                setTimeout(function(){
+                    window.location.href="{#WWW}";
+                },2000);
+            }
+
+        },'json');
+    })
+
+    $("#reg").click(function(){
+        var postdata = $('#reguser').serialize();
+        $.post("{#WWW}user{#EXP}add", postdata,  function(e){
+            swal(e.error ? "注册成功 - 正在为你登录" : "注册失败", e.info, e.error ? "success" : "error");
+            if(e.error){
+                setTimeout(function(){
+                    window.location.href="{#WWW}";
+                },2000);
+            }
+
+        },'json');
+    })
+
+
+
+});
+</script>
+  </body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {hook t_header}
+	<title>{$title}{$conf.title2}</title>
+    {hook t_header_1}
+    <link href="{#WWW}public/css/alert.css" rel="stylesheet">
+    <script src="{#WWW}public/js/sweet-alert.min.js"></script>
+    <style>
+    *{
+        margin:0;
+        padding:0;
+    }
+    .bj{
+    	background-image: url('http://7xq3au.com1.z0.glb.clouddn.com/2.jpg');
+            position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        z-index: -10;
+
+        background-position: center 0;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        -webkit-background-size: cover;
+        -o-background-size: cover;
+        zoom: 1;
+        background-color: #404040;
+
+
+    }
+    *, :after, :before {
+    box-sizing: border-box;
+}
+    </style>
+	</head>
+  <body>
+      <div class="bj"></div>
+
+      <!-- <div style="
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    background: rgba(255, 255, 255, 0.88);
+"> -->
+
+    </div>
+
+<script>
+window.onload = function(){
+    swal({
+        title: "{$msg}",
+        type: "<?php echo ($bool) ? "success" : "error" ?>",
+        showCancelButton: true,
+         confirmButtonColor: "#DD6B55",
+         confirmButtonText: "返回上一页",
+         cancelButtonText:"返回首页",
+
+     }, function(e){
+         if(e){
+             history.go(-1);
+         }else{
+             window.location.href="{#WWW}";
+         }
+     });
+
+}
+</script>
+
+  </body>
+</html>

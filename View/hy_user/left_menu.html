@@ -1,0 +1,44 @@
+<div class="aside">
+    <div class="user-avatar">
+        <a href="#">
+            <img src="{#WWW}{$data.avatar.a}" class="avatar avatar-200" height="200" width="200"></a>
+        <h2>{$data.user}</h2>
+        <div id="num-info">
+            <div>
+                <span class="num">0</span><span class="text">关注</span>
+            </div>
+            <div>
+                <span class="num">0</span><span class="text">粉丝</span>
+            </div>
+            <div>
+                <span class="num">{$data.threads}</span><span class="text">文章</span>
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+    <div class="menus">
+        <ul>
+            <li class="tab-index {$menu_action.index}">
+
+            <a href="{php echo WWW.URL('my',$data['user'],'');}"><i class="fa fa-tachometer"></i>首页中心</a>
+            </li>
+            <li class="tab-post {$menu_action.thread}">
+            <a href="{php echo WWW.URL('my',$data['user'],EXP.'thread');}"><i class="fa fa-cube"></i>我的文章</a>
+            </li>
+            <li class="tab-comment {$menu_action.post}">
+            <a href="{php echo WWW.URL('my',$data['user'],EXP.'post');}"><i class="fa fa-comments"></i>帖子评论</a>
+            </li>
+            {if IS_LOGIN}
+            {if $data['id'] == $user['id']}
+            <li class="tab-message {$menu_action.mess}">
+            <a href="{php echo WWW.URL('my',$data['user'],EXP.'mess');}"><i class="fa fa-envelope"></i>站内消息</a>
+            </li>
+            <li class="tab-profile {$menu_action.op}">
+            <a href="{php echo WWW.URL('my',$data['user'],EXP.'op');}"><i class="fa fa-cog"></i>编辑资料</a>
+            </li>
+            {/if}
+            {/if}
+        </ul>
+    </div>
+</div>

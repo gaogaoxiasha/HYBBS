@@ -1,0 +1,6 @@
+<a href="{php echo WWW.URL('index','github');}" class="qj-menu <?php echo isset($left_menu['github'])? $left_menu['github'] : '' ; ?>" address="true" style="height: 100px;">
+    <span>
+        <i class="fa fa-github fa-2x"></i>
+        <span class="qj-menu-title">托管下载</span>
+    </span>
+</a>

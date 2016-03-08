@@ -1,0 +1,81 @@
+{include header}
+<div class="wrapper">
+    {include header_menu}
+    {include left_menu}
+    <style>
+    .gallery-list .gallery-item {
+        position: relative;
+        display: inline-block;
+        width: 33%;
+        padding: 2px;
+    }
+    .gallery-list .gallery-item .gallery-wrapper .gallery-title.action{
+        background-color: #2baab1;
+    }
+    .gallery-list .gallery-item .gallery-wrapper .gallery-overlay .gallery-action.action {
+        background-color: #2baab1;
+    }
+    </style>
+    <div class="main-container">
+        <div class="padding-md">
+            <h2 class="header-text no-margin">
+				外观 & 模板
+			</h2>
+            <div class="gallery-filter m-top-md">
+				<ul class="clearfix">
+					<li class="active"><a href="{#WWW}admin{#EXP}view">我的</a></li>
+					<li><a href="{#WWW}admin{#EXP}viewol">线上</a></li>
+                    <li class="pull-right active"><a href="#" onclick="$('#gn1').val('add');;$('#zti').text('新建模板')" data-toggle="modal" data-target="#normalModal1"><i class="fa fa-plus"></i> 制作模板</a></li>
+				</ul>
+			</div>
+
+
+
+
+            <div class="modal fade in" id="normalModal1" aria-hidden="false">
+			  	<div class="modal-dialog">
+			    	<div class="modal-content">
+			      		<div class="modal-header">
+			        		<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+			        		<h4 class="modal-title" id="zti">新建模板</h4>
+			      		</div>
+			      		<div class="modal-body" id="md1">
+                            请在你的模板目录新建一个模板目录,例如 : /View/mytemp <br>
+                            那么请在你的 mytemp 开发你的模板HTML文件吧!<br>
+
+                            非常注意: 模板目录名请保持小写,否则Linux环境会出现错误!
+
+			      		</div>
+			      		<div class="modal-footer">
+			        		<button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
+
+			      		</div>
+			    	</div>
+			  	</div>
+			</div>
+
+
+
+            <div class="gallery-list js-masonry m-top-md">
+            {foreach $data as $v}
+
+                <div class="gallery-item">
+        			<div class="gallery-wrapper">
+        				<a class="gallery-remove"><i class="fa fa-times"></i></a>
+        				<img src="{#WWW}View/{$v}/back.png" alt="">
+        				<div class="gallery-title {if strcasecmp(THEME_NAME,$v) == 0}action{/if}">
+        					{$v}
+        				</div>
+        				<div class="gallery-overlay ">
+        					<a title="应用模板" href="{#WWW}admin{#EXP}view{#EXP}edit{#EXP}{$v}" class="gallery-action enlarged-photo {if strcasecmp(THEME_NAME,$v) == 0}action{/if}"><i class="fa fa-check fa-lg"></i></a>
+        				</div>
+        			</div>
+        		</div>
+
+            {/foreach}
+            </div>
+        </div>
+    </div>
+
+</div>
+{include footer}

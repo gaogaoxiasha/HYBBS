@@ -1,0 +1,56 @@
+<div id="right-bar">
+	{hook right_box_top}
+	<div class="widget-docs-search shadow">
+		<div class="inner">
+			<form method="get" action="{#WWW}search">
+			<input type="text" name="key" value="" class="h-scanfin">
+			<span class="icon-search h-scanf"></span>
+			</form>
+		</div>
+	</div>
+	<div class="right-widget only-logo">
+		<div class="head">
+			所有版块 <a href="javascript:void(0)" class="pull-right js-tooltip"><span class="icon icon-cog icon-lg"></span></a>
+		</div>
+		<div class="items grid">
+		{foreach $forum as $key => $v}
+			<a href="<?php echo WWW.URL('forum','',EXP.$v['id']); ?>" class="item g-1-3">
+			<img src="{#WWW}View/hy_boss/css/{$key}.png" style="width: 50px;display: block;margin: 0 auto;">
+			<span>{$v.name}</span>
+			</a>
+
+		{/foreach}
+
+
+		</div>
+
+
+	</div>
+	<div class="right-widget only-logo">
+		<div class="head">
+			站点统计 <a href="javascript:void(0)" class="pull-right js-tooltip"><span class="icon icon-cog icon-lg"></span></a>
+		</div>
+		<div class="items grid">
+				<span style="letter-spacing: normal;padding:10px;font-size:18px;" href="javascript:void(0)">OO群:193620421</span>
+			<br>
+				<a style="padding:10px" href="javascript:void(0)">运行耗时：<?php echo number_format(microtime(1) - $GLOBALS['START_TIME'], 4); ?> s</a>
+		</div>
+	</div>
+	<div class="right-widget only-logo">
+		<div class="head">
+			论坛源码下载 <a href="javascript:void(0)" class="pull-right js-tooltip"><span class="icon icon-cog icon-lg"></span></a>
+		</div>
+		<div style="padding:2px">
+			<script src='https://git.oschina.net/hyyyp/HYBBS/widget_preview'></script>
+		    <style>
+		    .pro_name a{color: #4183c4;}
+		    .osc_git_title{background-color: #d8e5f1;}
+		    .osc_git_box{background-color: #fafafa;}
+		    .osc_git_box{border-color: #ddd;}
+		    .osc_git_info{color: #666;}
+		    .osc_git_main a{color: #4183c4;}
+		    </style>
+		</div>
+	</div>
+	{hook right_box_bottom}
+</div>

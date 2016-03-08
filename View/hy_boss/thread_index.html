@@ -1,0 +1,190 @@
+ {include h}
+<div class="container">
+  <div id="main">
+    {hook t_top_left_box}
+    {hook t_thread_index_top_left_box}
+    <div class="wrap-box t-info">
+      <div class="head">
+        <h1>
+          {$thread_data.title}
+        </h1>
+        <div class="meta">
+          <a href="{php echo WWW.URL('my',$thread_data['user']);}" class="js-at-val" target="_blank">
+            {$thread_data.user}
+          </a>
+          &nbsp;&nbsp;·&nbsp;&nbsp;{php echo humandate($thread_data['atime']);}
+        </div>
+        <a href="{php echo WWW.URL('my',$thread_data['user']);}" class="avatar" target="_blank">
+          <img src="{#WWW}{$thread_data.avatar.b}" pos="right" width="60" height="60" class="circle js-info" uid="{$thread_data.uid}">
+        </a>
+      </div>
+      <div class="content typo">
+        {hook t_thread_content_top}
+      	{$post_data.content}
+        {hook t_thread_content_bottom}
+      </div>
+      <div class="actions">
+       
+        <a href="javascript:void(0);" class=""  onclick="tp('thread1',{$thread_data.id},this)">
+            支持&nbsp;&nbsp;<span style="padding:0">{$thread_data.goods}</span>
+        </a>
+        <span class="grey">|</span>
+        <a href="javascript:void(0);" class="" onclick="tp('thread2',{$thread_data.id},this)">
+            反对&nbsp;&nbsp;<span style="padding:0">{$thread_data.nos}</span>
+        </a>
+        {if IS_LOGIN }
+            {if $thread_data['uid'] == $user['id'] || $user['group'] == C("ADMIN_GROUP")}
+            <span class="grey">|</span>
+            <a class="" href="{php echo WWW.URL('post','edit',EXP.'id'.EXP.$post_data['id']); }">编辑</a>
+            {/if}
+        {/if}
+
+        {if IS_LOGIN }
+            {if $thread_data['uid'] == $user['id'] || $user['group'] == C("ADMIN_GROUP")}
+            <span class="grey">|</span>
+            <a href="javascript:void(0);" class="" onclick="del_thread({$thread_data.id},'thread')" >删除主题</a>
+            
+            {/if}
+            {if $user['group'] == C("ADMIN_GROUP")}
+            <span class="grey">|</span>
+                {if $thread_data['top'] == 1}
+                
+                <a href="javascript:void(0);" class="" onclick="thread_top({$thread_data.id},'off',1)" >取消板块置顶</a>
+                {else}
+                <a href="javascript:void(0);" class="" onclick="thread_top({$thread_data.id},'on',1)" >板块置顶</a>
+                {/if}
+                
+            {/if}
+
+            {if $user['group'] == C("ADMIN_GROUP")}
+
+                <!-- 管理员权限 -->
+                <span class="grey">|</span>
+                {if $thread_data['top'] == 2}
+                <a href="javascript:void(0);" class="" onclick="thread_top({$thread_data.id},'off',2)" >取消全站置顶</a>
+                {else}
+                <a href="javascript:void(0);" class="" onclick="thread_top({$thread_data.id},'on',2)" >全站置顶</a>
+                {/if}
+                
+            {/if}
+            {/if}
+
+            <?php $arr = explode(",",$forum[$thread_data['fid']]['forumg']); ?>
+            {if IS_LOGIN }
+                <!-- 版主权限 -->
+                {if $thread_data['uid'] != $user['id'] && array_search($user['id'],$arr)}
+                <span class="grey">|</span>
+                <a href="javascript:void(0);" class="" onclick="del_thread({$thread_data.id},'thread')" >删除主题</a>
+                
+                {/if}
+    
+                {if array_search($user['id'],$arr)}
+                    <span class="grey">|</span>
+                    {if $thread_data['top'] == 1}
+                    <a href="javascript:void(0);" class="" onclick="thread_top({$thread_data.id},'off',1)" >取消板块置顶</a>
+                    {else}
+                    <a href="javascript:void(0);" class="" onclick="thread_top({$thread_data.id},'on',1)" >板块置顶</a>
+                    {/if}
+                {/if}
+                
+
+            {/if}
+
+
+      
+        <!-- <span class="pull-right grey-dark">
+          1 人收藏
+        </span> -->
+      </div>
+    </div>
+    
+    <div class="h-20"></div>
+ 
+
+    <div class="typo comments">
+      <div class="wrap-box comment-list">
+        <div class="head">
+          {$thread_data.posts} 条回复 &nbsp;
+          <span class="grey">
+            |
+          </span>
+          &nbsp;直到 {php echo humandate($thread_data['btime']);}
+        </div>
+		{foreach $PostList as $k => $v}
+        <div class="item" data-id="26" data-tid="26">
+          <a name="reply26">
+          </a>
+          <a href="{php echo WWW.URL('my',$v['user']);}" class="avatar" target="_blank">
+            <img class="circle js-unveil js-info" uid="{$v.uid}" src="{#WWW}{$v.avatar.b}">
+          </a>
+          <div class="r">
+            <p class="meta">
+              <a href="{php echo WWW.URL('my',$v['user']);}" class="author js-at-val" target="_blank">
+                {$v.user}
+              </a>
+              <span class="time">
+                {$v.atime_str}
+              </span>
+              <span class=" pull-right" >
+                <a href="javascript:void(0);" class="" onclick="tp('post1',{$v.id},this)">
+                    支持&nbsp;&nbsp;<span style="padding:0">{$v.goods}</span>
+                </a>
+                <span class="grey">|</span>
+                <a href="javascript:void(0);" class="" onclick="tp('post2',{$v.id},this)">
+                    反对&nbsp;&nbsp;<span style="padding:0">{$v.nos}</span>
+                </a>
+
+                {if IS_LOGIN }
+
+                    {if $thread_data['uid'] == $user['id'] || $user['group'] == C("ADMIN_GROUP")}
+                    <span class="grey">|</span>
+                    <a class="" href="{php echo WWW.URL('post','edit',EXP.'id'.EXP.$v['id']); }">编辑</a>
+                    {/if}
+                
+                    <span class="grey">|</span>
+                    {if $v['uid'] == $user['id'] || $user['group'] == C("ADMIN_GROUP")}
+                        <!-- 作者 与 管理员 判断 -->
+                        <a href="javascript:void(0);" class="" onclick="del_thread({$v.id},'post')" >删除帖子</a>
+                    {/if}
+
+                    {if $v['uid'] != $user['id'] && array_search($user['id'],$arr)}
+                        <!-- 不是作者 并且 是版主 -->
+                        <a href="javascript:void(0);" class="" onclick="del_thread({$v.id},'post')" >删除评论</a>
+                    {/if}
+                {/if}
+              </span>
+              
+            </p>
+            <div class="text typo">
+            {hook t_post_content_top}
+              {$v.content}
+            {hook t_post_content_bottom}
+            </div>
+          </div>
+          
+        </div>
+        {/foreach}
+      </div>
+      <div class="h-20"></div>
+      <div class="wrap-box">
+      {hook t_thread_index_page_top}
+        <a href="{if $pageid==1}javascript:void(0);{else}{php echo WWW.URL('thread',$thread_data['id'],EXP . ($pageid-1));}{/if}"  class="btn bg-primary {if $pageid==1}disabled{/if}" >上一页</a>
+			<a href="{if $pageid==$page_count}javascript:void(0);{else}{php echo WWW.URL('thread',$thread_data['id'],EXP . ($pageid+1));}{/if}" class="btn bg-primary large pull-right {if $pageid==$page_count}disabled{/if}" >下一页</a>
+      {hook t_thread_index_page_bottom}
+	  </div>
+	  <div class="h-20"></div>
+      <div class="wrap-box">
+      {hook t_post_editer_top}
+        {if IS_LOGIN}
+            {hook t_thread_index}
+        {else}
+            <a href="{#WWW}user{#EXP}login">登陆</a>后才可发表内容 
+        {/if}
+      {hook t_post_editer_bottom}
+        
+      </div>
+	  {include r_m}
+</div>
+</div>
+</div>
+{include f}

@@ -1,0 +1,10 @@
+//<?php
+
+public function github(){
+    $left_menu = array('index'=>'','forum'=>'','github'=>'active');
+    $this->v("left_menu",$left_menu);
+
+    $this->v("title","代码托管下载");
+
+    $this->display('plugin.hy_test::hy_test');
+}

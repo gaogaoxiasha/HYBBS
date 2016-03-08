@@ -1,0 +1,216 @@
+{include header}
+<div class="wrapper">
+    {include header_menu}
+    {include left_menu}
+    <style>
+    .gallery-list .gallery-item {
+        position: relative;
+        display: inline-block;
+        width: 33%;
+        padding: 2px;
+    }
+    .gallery-list .gallery-item .gallery-wrapper .gallery-title.action{
+        background-color: #2baab1;
+    }
+    .gallery-list .gallery-item .gallery-wrapper .gallery-overlay .gallery-action.action {
+        background-color: #2baab1;
+    }
+    </style>
+    <div class="main-container">
+        <div class="padding-md">
+            <div class="smart-widget">
+        		<div class="smart-widget-header">
+        			板块列表
+
+        		</div>
+        		<div class="smart-widget-inner">
+        			<div class="smart-widget-hidden-section">
+        				<ul class="widget-color-list clearfix">
+        					<li style="background-color:#20232b;" data-color="widget-dark"></li>
+        					<li style="background-color:#4c5f70;" data-color="widget-dark-blue"></li>
+        					<li style="background-color:#23b7e5;" data-color="widget-blue"></li>
+        					<li style="background-color:#2baab1;" data-color="widget-green"></li>
+        					<li style="background-color:#edbc6c;" data-color="widget-yellow"></li>
+        					<li style="background-color:#fbc852;" data-color="widget-orange"></li>
+        					<li style="background-color:#e36159;" data-color="widget-red"></li>
+        					<li style="background-color:#7266ba;" data-color="widget-purple"></li>
+        					<li style="background-color:#f5f5f5;" data-color="widget-light-grey"></li>
+        					<li style="background-color:#fff;" data-color="reset"></li>
+        				</ul>
+        			</div>
+                    <style>
+
+                    .table-striped>tbody>tr{
+                            cursor: pointer;
+                    }
+                    </style>
+                    <script>
+                    (function(){
+
+                    });
+                    function edit_forum(obj){
+                        var i=0;
+                        $("#edit0").val('');
+                        $("#edit1").val('');
+                        $("#edit2").val('-1');
+                        $(obj).find('td').each(function(e){
+
+                            $("#edit"+(i++)).val($(this).text());
+
+                            if(i==1){
+                                $("#iid").val($(this).text());
+                            }
+
+
+                        })
+                    }
+                    </script>
+
+                			<div class="smart-widget-body">
+                				<table class="table table-striped">
+                		      		<thead>
+                		        		<tr>
+                			          		<th>分类ID</th>
+                			          		<th>分类名称</th>
+                			          		<th>父分类ID</th>
+                			          		<th>父分类名称</th>
+                		        		</tr>
+                		      		</thead>
+                		      		<tbody>
+
+                			        	{foreach $data as $v}
+                                        <tr onclick="edit_forum(this)">
+                                            <td>{$v.id}</td>
+                                            <td>{$v.name}</td>
+
+                                            {foreach $data1 as $vv}
+
+                                                {if $v['fid'] == $vv['id']}
+                                                    <td>{$vv.id}</td>
+                                                    <td>{$vv.name}</td>
+
+                                                {/if}
+                                            {/foreach}
+
+                                        </tr>
+                                        {/foreach}
+                			      	</tbody>
+                			    </table>
+
+
+
+                    </div>
+        		</div><!-- ./smart-widget-inner -->
+        	</div>
+            <div class="smart-widget-body">
+
+
+				<a href="{if $pageid==1}javascript:void(0);{else}{#WWW}admin{#EXP}forum?pageid={$pageid-1}{/if}" class="btn btn-success marginTB-xs" {if $pageid==1}disabled{/if}><i class="fa fa-angle-double-left m-left-xs"></i> 上一页</a>
+
+				<a href="{if $pageid==$page_count}javascript:void(0);{else}{#WWW}admin{#EXP}forum?pageid={$pageid+1}{/if}" style="float:right" class="btn btn-success marginTB-xs" {if $pageid==$page_count}disabled{/if}>下一页<i class="fa fa-angle-double-right m-left-xs"></i></a>
+
+
+			</div>
+            <div class="alert alert-success alert-custom alert-dismissible" role="alert">
+		    	<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+		    	<i class="fa fa-check-circle m-right-xs"></i><strong>注意事项!</strong> 你所看到的 -1 都是代表 无父分类 的意思
+		    </div>
+            <div class="row">
+            <div class="col-md-6">
+                <div class="smart-widget m-top-lg widget-dark-blue">
+    				<div class="smart-widget-header">
+    					添加分类
+    					<span class="smart-widget-option">
+    						<span class="refresh-icon-animated">
+    							<i class="fa fa-circle-o-notch fa-spin"></i>
+    						</span>
+
+                            <a href="#" class="widget-collapse-option" data-toggle="collapse">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+
+
+                        </span>
+    				</div>
+    				<div class="smart-widget-inner">
+    					<div class="smart-widget-body">
+                            <h2>说明</h2>
+                            <section>
+    		                    <p>注意如果你的分类不想继承,作为子分类,请不要更改 父分类ID的-1, -1值代表无继承 无父</p>
+    		                </section>
+    						<form  method="post">
+                                <input type="hidden" name="gn" value="1">
+    							<div class="form-group">
+    								<label for="">分类ID</label>
+    								<input type="text" name="id" class="form-control" >
+    							</div><!-- /form-group -->
+    							<div class="form-group">
+    								<label for="">板块名称</label>
+    								<input type="text" name="name" class="form-control" >
+    							</div>
+                                <div class="form-group">
+    								<label for="">父分类ID</label>
+    								<input type="text" name="fid" class="form-control"  value="-1">
+    							</div><!-- /form-group -->
+
+
+    							<button type="submit" class="btn btn-success btn-sm">提交</button>
+    						</form>
+    					</div>
+    				</div><!-- ./smart-widget-inner -->
+    			</div>
+            </div>
+            <div class="col-md-6">
+                <div class="smart-widget m-top-lg widget-dark-blue">
+    				<div class="smart-widget-header">
+    					编辑分类 (请点击上面的分类)
+    					<span class="smart-widget-option">
+    						<span class="refresh-icon-animated">
+    							<i class="fa fa-circle-o-notch fa-spin"></i>
+    						</span>
+
+                            <a href="#" class="widget-collapse-option" data-toggle="collapse">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+
+
+                        </span>
+    				</div>
+    				<div class="smart-widget-inner">
+    					<div class="smart-widget-body">
+                            <h2>说明</h2>
+                            <section>
+    		                    <p>不建议更改分类ID,因为当你的某些文章已经使用此分类, 你一旦更改分类ID 那么文章将找不到此分类方法,会导致错误!</p>
+    		                </section>
+    						<form  method="post">
+                                <input type="hidden" name="gn" value="2">
+                                <input type="hidden" id="iid" name="iid" value="">
+                                <div class="form-group">
+    								<label for="">分类ID (不建议更改)</label>
+    								<input name="id" id="edit0" type="text" class="form-control" >
+    							</div><!-- /form-group -->
+    							<div class="form-group">
+    								<label for="">板块名称</label>
+    								<input name="name" id="edit1" type="text" class="form-control" >
+    							</div>
+                                <div class="form-group">
+    								<label for="">父分类ID</label>
+    								<input name="fid" id="edit2" type="text" class="form-control">
+    							</div><!-- /form-group -->
+
+    							<button type="submit" class="btn btn-success btn-sm">提交</button>
+    						</form>
+                            <div style="margin-top:10px" class="alert alert-danger alert-custom alert-dismissible" role="alert">
+                		    	<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                		    	<i class="fa fa-check-circle m-right-xs"></i><strong>注意事项!</strong> 如果你发现更改失败,请刷新此页面再修改
+                		    </div>
+    					</div>
+    				</div><!-- ./smart-widget-inner -->
+    			</div>
+            </div>
+            </div>
+        </div><!-- ENd box  -->
+
+    </div>
+</div>
+{include footer}

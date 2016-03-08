@@ -1,0 +1,65 @@
+<?php
+return array(
+    'DEBUG_PAGE'=>true,
+
+    'DOMAIN_NAME' => 'http://127.0.0.1',
+
+    'url_suffix'=>'.html',
+    'url_explode'=>'/',
+
+    'HY_URL'=>array(
+        'action'=>array(
+            'thread'=>'t',
+            'forum'=>'f',
+            'my'=>'u',
+        ),
+        'method'=>array(
+            'thread'=>array(
+                'del'=>'d'
+            )
+        )
+    ),
+
+    //数据库类型
+    "SQL_TYPE" => "sql_typee",
+    //数据库名称
+    "SQL_NAME" => "MYSQL_NAME",
+    //数据库地址
+    "SQL_IP"=>"MYSQL_IP",
+    //数据库账号
+    'SQL_USER' => 'MYSQL_USER',
+    //数据密码
+    'SQL_PASS' => 'MYSQL_PASS',
+    //数据库字符集
+    'SQL_CHARSET' => 'utf8',
+    //数据库端口
+    'SQL_PORT' => MYSQL_PORT,
+    //数据库前缀
+    'SQL_PREFIX' => 'hy_',
+    //PDO配置
+    'SQL_OPTION' => array(
+        PDO::ATTR_CASE => PDO::CASE_NATURAL,
+        PDO::ATTR_PERSISTENT => true //长连接
+    ),
+
+    //全站加密字符串, 请勿泄露 安装时会随机生成 , 注意备份!
+    //目前用于用户信息COOKIE加密
+    //缓存文件名加密
+    //头像文件名加密
+    'MD5_KEY' => '1234567890',
+
+    //管理员用户组 ID
+    'ADMIN_GROUP' =>1,
+
+    // 赞 超出多少变色
+    "UP_SIZE"=>10,
+    //赞 变色颜色 支持 #,RGB RGBA , name
+    "UP_RGB"=>"seagreen",
+
+    //踩 数量
+    "DOWN_SIZE"=>10,
+    //踩 变色
+    "DOWN_RGB"=>"red"
+
+
+);

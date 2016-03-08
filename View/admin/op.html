@@ -1,0 +1,165 @@
+{include header}
+<div class="wrapper">
+    {include header_menu}
+    <div class="main-container">
+        <div class="padding-md">
+            <h2 class="header-text">
+				设置
+				<span class="sub-header">
+					Config
+				</span>
+
+			</h2>
+            <div class="smart-widget">
+				<div class="smart-widget-header">
+					配置项
+					<span class="smart-widget-option">
+
+
+                        <a href="#" class="widget-collapse-option" data-toggle="collapse">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+
+                    </span>
+				</div>
+				<div class="smart-widget-inner">
+					<div class="smart-widget-body">
+						<form method="POST" class="form-horizontal no-margin form-border">
+                            <h2>站点设置</h2>
+                            <div class="form-group">
+								<label class="col-lg-2 control-label">网站标题</label>
+								<div class="col-lg-10">
+									<input class="form-control" type="text" name="title" value="{$conf.title}">
+									<span class="help-block">这是你的首页标题.</span>
+								</div>
+							</div>
+                            <div class="form-group">
+								<label class="col-lg-2 control-label">网站关键字</label>
+								<div class="col-lg-10">
+									<input class="form-control" type="text" name="key" value="{$conf.keywords}">
+									<span class="help-block">这将是你的首页keyword.</span>
+								</div>
+							</div>
+                            <div class="form-group">
+								<label class="col-lg-2 control-label">网站描述</label>
+								<div class="col-lg-10">
+									<input class="form-control" type="text" name="de" value="{$conf.description}">
+									<span class="help-block">这将是你的首页description.</span>
+								</div>
+							</div>
+                            <div class="form-group">
+								<label class="col-lg-2 control-label">网站标题尾巴</label>
+								<div class="col-lg-10">
+									<input class="form-control" type="text" name="title2" value="{$conf.title2}">
+									<span class="help-block">每个页面的标题后缀</span>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-2 control-label">近期文章缓存数量</label>
+								<div class="col-lg-10">
+									<input class="form-control" type="text" name="tmpthread" value="{$conf.tmp_thread}">
+									<span class="help-block">这个配置将会使用缓存记录最新的5个文章简要数据,用于最近发表的一个调用.</span>
+								</div>
+							</div>
+                            <div class="form-group">
+								<label class="col-lg-2 control-label">近期评论缓存数量</label>
+								<div class="col-lg-10">
+									<input class="form-control" type="text" name="tmppost" value="{$conf.tmp_post}">
+									<span class="help-block">缓存最新评论的文章列表，默认5个</span>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-lg-2 control-label">近期图文缓存数量</label>
+								<div class="col-lg-10">
+									<input class="form-control" type="text" name="tmpimage" value="{$conf.tmpimage}">
+									<span class="help-block">缓存最近带有图片的文章，默认：5</span>
+								</div>
+							</div>
+                            <h2>视图设置</h2>
+
+                            <div class="form-group">
+								<label class="col-lg-2 control-label">首页显示主题个数</label>
+								<div class="col-lg-10">
+									<input class="form-control" type="text" name="homelist" value="{$conf.homelist}">
+									<span class="help-block">在首页中每页显示的主题数目默认为:10</span>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-2 control-label">板块显示主题个数</label>
+								<div class="col-lg-10">
+									<input class="form-control" type="text" name="forumlist" value="{$conf.forumlist}">
+									<span class="help-block">在分类板块中每页显示的主题数目 默认为:10</span>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-2 control-label">主题内页显示个数</label>
+								<div class="col-lg-10">
+									<input class="form-control" type="text" name="postlist" value="{$conf.postlist}">
+									<span class="help-block">主题内页中 每页显示评论个数</span>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-lg-2 control-label">搜索页面每页显示个数</label>
+								<div class="col-lg-10">
+									<input class="form-control" type="text" name="searchlist" value="{$conf.searchlist}">
+									<span class="help-block">搜索页面中,每页显示的搜索个数,默认:10</span>
+								</div>
+							</div>
+
+                            <div class="form-group">
+								<label class="col-lg-2 control-label">用户中心模板名</label>
+								<div class="col-lg-10">
+									<input class="form-control" type="text" name="userview" value="{$conf.userview}">
+									<span class="help-block">此处不需要修改,这是用户中心所使用的模板名称 默认:hy_user</span>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-2 control-label">用户登录注册模板</label>
+								<div class="col-lg-10">
+									<input class="form-control" type="text" name="userview2" value="{$conf.userview2}">
+									<span class="help-block">如果你有独立的 用户登录模板 可以修改他 否则默认使用:hy_user</span>
+								</div>
+							</div>
+                            <div class="form-group">
+								<label class="col-lg-2 control-label">信息提示Message模板</label>
+								<div class="col-lg-10">
+									<input class="form-control" type="text" name="messview" value="{$conf.messview}">
+									<span class="help-block">此处是Message 信息提示页模板 默认:hy_message</span>
+								</div>
+							</div>
+
+
+                            <h2>用户社交设置</h2>
+                            <div class="form-group">
+								<label class="col-lg-2 control-label">发表主题增加金钱数</label>
+								<div class="col-lg-10">
+									<input class="form-control" type="text" name="gold_thread" value="{$conf.gold_thread}">
+									<span class="help-block">用户发表主题增加金钱数</span>
+								</div>
+							</div>
+                            <div class="form-group">
+								<label class="col-lg-2 control-label">回复增加金钱数</label>
+								<div class="col-lg-10">
+									<input class="form-control" type="text" name="gold_post" value="{$conf.gold_post}">
+									<span class="help-block">用户回复增加金钱数</span>
+								</div>
+							</div>
+
+                            <div class="form-group">
+								<label class="col-lg-2 control-label"></label>
+								<div class="col-lg-10">
+									<button type="submit"  class="btn btn-success">提 交</button>
+
+								</div><!-- /.col -->
+							</div>
+						</form>
+					</div>
+				</div><!-- ./smart-widget-inner -->
+			</div>
+        </div>
+    </div>
+    {include left_menu}
+</div>
+{include footer}

@@ -1,0 +1,208 @@
+//<?php
+
+public function qqlogin(){
+
+	include PLUGIN_PATH . '/hy_qq_login/API/qqConnectAPI.php';
+
+	$qc = new QC();
+	$qc->qq_login();
+
+}
+public function qqbind(){
+	if(!get_plugin_install_state("hy_qq_login"))
+		return $this->message("QQ登录插件未安装!");
+	if(IS_GET){
+		//include PLUGIN_PATH . '/hy_qq_login/API/qqConnectAPI.php';
+		//$qc = new QC($token, $openid);
+		$qqmd5 = cookie('qqmd5');
+		$inc = get_plugin_inc('hy_qq_login');
+
+		$json = L("Encrypt")->decrypt($qqmd5,$inc['appid']);
+		$arr = json_decode($json,true);
+		$openid = $arr[0];
+		$token = $arr[1];
+		unset($json);
+
+		$json = file_get_contents("https://graph.qq.com/user/get_user_info?access_token=$token&oauth_consumer_key={$inc['appid']}&openid=$openid");
+		$arr = json_decode($json,true);
+		$this->v("inc",$inc);
+		$this->v("arr",json_decode($json,true));
+		$this->display("plugin.hy_qq_login::qqbind");
+	}elseif(IS_POST){
+		$user = X("post.user");
+		$pass = X("post.pass");
+		$UserLib = L("User");
+		$msg = $UserLib->check_user($user);
+		if(!empty($msg))
+			return $this->message($msg);
+		if(!$UserLib->check_pass($pass))
+			return $this->message('密码不符合规则');
+
+
+		$qqmd5 = cookie('qqmd5');
+		if(empty($qqmd5))
+			return $this->message("你需要重新登录QQ");
+		$inc = get_plugin_inc('hy_qq_login');
+		$json = L("Encrypt")->decrypt($qqmd5,$inc['appid']);
+		$arr = json_decode($json,true);
+		$openid = $arr[0];
+		$token = $arr[1];
+		unset($json);
+		if(strlen($openid) != 32)
+			return $this->message("你需要重新登录QQ");
+
+		$qqlogin = S("qqlogin");
+		$bool = $qqlogin->has(array(
+			'openid'=>$openid
+		));
+		if($bool){
+			return $this->message("该QQ之前就绑定过咯!");
+		}
+
+
+		$User = M("User");
+		if(!$User->is_user($user))
+			return $this->message("账号不存在!");
+		$data = $User->find("*",array('user'=>$user));
+
+		if(!empty($data)){
+			$UserLib = L("User");
+			if($data['pass'] == $UserLib->md5_md5($pass,$data['salt'])){
+				unset($bool);
+				$bool = $qqlogin->has(array(
+					'uid'=>$data['id']
+				));
+				if($bool){
+					return $this->message("这个账号之前已经绑定过QQ咯!");
+				}
+
+				$qqlogin->insert(array(
+					'openid'=>$openid,
+					'uid'=>$data['id']
+				));
+
+				cookie('HYBBS_HEX',$UserLib->set_cookie($data));
+				cookie('qqmd5',null);
+				$this->init_user();
+				return $this->message("绑定成功 !",true);
+			}else{
+				return $this->message("密码错误!");
+			}
+		}else{
+			return $this->message('账号数据不存在!');
+		}
+	}
+}
+public function qqadd(){
+	if(!get_plugin_install_state("hy_qq_login"))
+		return $this->message("QQ登录插件未安装!");
+	if(IS_GET){
+		//include PLUGIN_PATH . '/hy_qq_login/API/qqConnectAPI.php';
+		//$qc = new QC($token, $openid);
+		$qqmd5 = cookie('qqmd5');
+		$inc = get_plugin_inc('hy_qq_login');
+
+		$json = L("Encrypt")->decrypt($qqmd5,$inc['appid']);
+		$arr = json_decode($json,true);
+		$openid = $arr[0];
+		$token = $arr[1];
+		unset($json);
+
+		$json = file_get_contents("https://graph.qq.com/user/get_user_info?access_token=$token&oauth_consumer_key={$inc['appid']}&openid=$openid");
+		$arr = json_decode($json,true);
+		$this->v("inc",$inc);
+		$this->v("arr",json_decode($json,true));
+		$this->display("plugin.hy_qq_login::qqadd");
+	}elseif(IS_POST){
+		$qqmd5 = cookie('qqmd5');
+		if(empty($qqmd5))
+			return $this->message("你需要重新登录QQ");
+		$inc = get_plugin_inc('hy_qq_login');
+		$json = L("Encrypt")->decrypt($qqmd5,$inc['appid']);
+		$arr = json_decode($json,true);
+		$openid = $arr[0];
+		$token = $arr[1];
+		unset($json);
+		if(strlen($openid) != 32)
+			return $this->message("你需要重新登录QQ");
+
+
+
+		$qqlogin = S("qqlogin");
+		$bool = $qqlogin->has(array(
+			'openid'=>$openid
+		));
+		if($bool){
+			return $this->message("这个QQ已经绑定了");
+		}
+		$user = X("post.user");
+		$pass1 = X("post.pass1");
+		$pass2 = X("post.pass2");
+		$email = X("post.email");
+		if($pass1 != $pass2)
+			return $this->message("两次密码不一致");
+		$UserLib = L("User");
+		$msg = $UserLib->check_user($user);
+		if(!empty($msg))
+			return $this->message($msg);
+		if(!$UserLib->check_pass($pass1))
+			return $this->message('密码不符合规则');
+		$msg = $UserLib->check_email($email);
+		if(!empty($msg))
+			return $this->message($msg);
+		$User = M("User");
+		if($User->is_user($user))
+			return $this->message("账号已经存在!");
+		if($User->is_email($email))
+			return $this->message("邮箱已经存在!");
+		$User->add_user($user,$pass1,$email);
+			//QQ表写入绑定
+			//获取 该用户的 UID
+		$id = $User->user_to_id($user);
+		if(!empty($id)){ //判断用户存在性
+			$qqlogin->insert(
+				array(
+					'openid'=>$openid,
+					'uid'=>$id
+				)
+			);
+			cookie('HYBBS_HEX',L("User")->set_cookie($User->read($id)));
+			$this->init_user();
+			cookie('qqmd5',null);
+		}
+		return $this->message("账号注册成功",true);
+	}
+}
+public function qqloginback(){
+	if(!get_plugin_install_state("hy_qq_login"))
+		return $this->message("QQ登录插件未安装!");
+
+	if(IS_GET){
+		include PLUGIN_PATH . '/hy_qq_login/API/qqConnectAPI.php';
+		$qc = new QC();
+		$token =($qc->qq_callback());
+		$openid = ($qc->get_openid());
+
+		$qqlogin = S("qqlogin");
+		$uid = $qqlogin->find("uid",array(
+			'openid'=>$openid
+		));
+		if(!empty($uid)){
+
+			$data = M("User")->find("*",array(
+				'id'=>$uid
+			));
+			cookie('HYBBS_HEX',L("User")->set_cookie($data));
+			$this->init_user();
+			return $this->message("登录成功",true);
+		}
+		$inc = get_plugin_inc('hy_qq_login');
+
+
+		cookie('qqmd5',L("Encrypt")->encrypt(json_encode(array($openid,$token)),$inc['appid']));
+		header("location: ".WWW."user".EXP."qqadd");
+
+	}
+}
+
+// http://bbs.hyyyp.com/user/qqlogin

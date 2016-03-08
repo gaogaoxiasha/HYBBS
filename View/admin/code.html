@@ -1,0 +1,192 @@
+{include header}
+<div class="wrapper">
+    {include header_menu}
+
+    {include left_menu}
+    <div class="main-container">
+        <div class="padding-md">
+            <h2 class="header-text no-margin">
+				插件
+			</h2>
+            <div class="gallery-filter m-top-md" style="margin:10px 0">
+				<ul class="clearfix">
+					<li class="active"><a href="{php echo WWW . URL('admin','code',EXT);}">我的</a></li>
+					<li><a href="{php echo WWW . URL('admin','codeol',EXT);}">线上</a></li>
+                    <li class="pull-right active"><a href="#" onclick="$('#gn1').val('add');$('#md1').html($('#text1').text());$('#zti').text('新建插件')" data-toggle="modal" data-target="#normalModal1"><i class="fa fa-plus"></i> 制作插件</a></li>
+				</ul>
+			</div>
+
+
+            <div class="row">
+            {foreach $data as $key => $v}
+
+            <div class="col-sm-4">
+                <div class="panel">
+    				<div class="panel-body">
+    					<a href="#" class="pull-left m-right-sm">
+    						<i class="fa fa-<?php echo $conf[$key]['icon']; ?> fa-3x"></i>
+    					</a>
+
+    					<div class=" m-left-sm">
+    						<strong class="font-14 block"><?php echo $conf[$key]['name']; ?></strong>
+    						<small class="text-muted">作者: <?php echo $conf[$key]['user']; ?></small>
+    						<div class="seperator"></div>
+                            <p class="m-bottom-none">
+								<?php echo $conf[$key]['mess']; ?>
+							</p>
+    						<a onclick="return update(this)" data="{$v}" state="{if isset($conf[$key]['on'])}on{else}off{/if}" class="btn btn-xs btn-{if isset($conf[$key]['on'])}success{else}danger{/if}">{if isset($conf[$key]['on'])}开启中{else}已禁用{/if}</a>
+                            {if is_plugin_function($v)}
+    						{if !get_plugin_install_state($v)}
+                            <a class="btn btn-xs btn-success" onclick="$('#gn1').val('install');$('#pluginname1').val('{$v}');$('#md1').load(window.location.pathname+'?name={$v}&gn=install');$('.modal-p1').text('<?php echo $conf[$key]['name']; ?>')" data-toggle="modal" data-target="#normalModal1">安装</a>
+                            <!-- <a class="btn btn-xs btn-danger" onclick="$('#gn1').val('del');$('#pluginname1').val('{$v}');$('#md1').html('<h1>删除插件目录文件</h1>');$('.modal-p1').text('<?php echo $conf[$key]['name']; ?>')" data-toggle="modal" data-target="#normalModal1">删除插件</a> -->
+                            {else}
+                            <a class="btn btn-xs btn-danger" onclick="$('#gn1').val('uninstall');$('#pluginname1').val('{$v}');$('#md1').load(window.location.pathname+'?name={$v}&gn=uninstall');$('.modal-p1').text('<?php echo $conf[$key]['name']; ?>')" data-toggle="modal" data-target="#normalModal1">卸载</a>
+                            {/if}
+                            {/if}
+                            {if get_plugin_inc($v)}
+                            <a class="btn btn-xs btn-warning" onclick="$('#gn').val('op');$('#pluginname').val('{$v}');$('#md').load(window.location.pathname+'?name={$v}&gn=op');$('.modal-p').text('<?php echo $conf[$key]['name']; ?>')" data-toggle="modal" data-target="#normalModal">配置</a>
+                            {/if}
+    					</div>
+
+    				</div>
+    			</div>
+			</div>
+
+
+            {/foreach}
+            </div>
+            <form method="post" >
+            <input type="hidden" id="pluginname" name="name" value="" >
+            <input type="hidden" id="gn" name="gn" value="" >
+            <div class="modal fade in" id="normalModal" aria-hidden="false">
+			  	<div class="modal-dialog">
+			    	<div class="modal-content">
+			      		<div class="modal-header">
+			        		<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+			        		<h4 class="modal-title">插件配置 - <span class="modal-p"></span></h4>
+			      		</div>
+			      		<div class="modal-body" id="md">
+
+			      		</div>
+			      		<div class="modal-footer">
+			        		<button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+			        		<button type="submit" class="btn btn-success">保存配置</button>
+			      		</div>
+			    	</div>
+			  	</div>
+			</div>
+            </form>
+            <textarea id="text1" style="display:none">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">插件名</label>
+                            <input type="text" name="name" class="form-control input-sm">
+                        </div>
+                    </div><!-- /.col -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">英文名</label>
+                            <input type="text" name="name2" class="form-control input-sm">
+                        </div>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">作者名</label>
+                            <input type="text" name="user" class="form-control input-sm">
+                        </div>
+                    </div><!-- /.col -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">插件FA图标</label>
+                            <input type="text" name="icon" class="form-control input-sm" value="plus">
+                        </div>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+                <div class="form-group">
+					<div class="custom-checkbox">
+						<input name="inc" type="checkbox" id="chk1">
+						<label for="chk1"></label>
+					</div>
+					支持配置 (inc.php & conf.html)
+					<div id="errorMessageArea1"></div>
+				</div>
+                <div class="form-group">
+					<div class="custom-checkbox">
+						<input name="fun" type="checkbox" id="chk2">
+						<label for="chk2"></label>
+					</div>
+					支持安装&卸载函数执行 (function.php plugin_install & uninstall)
+					<div id="errorMessageArea2"></div>
+				</div>
+
+                <div class="form-group">
+                    <label class="control-label">插件描述</label>
+                    <textarea class="form-control" name="mess" placeholder="在这里描述你的插件" rows="3" ></textarea>
+                </div><!-- /form-group -->
+
+
+
+            </textarea>
+
+            <form method="post" >
+            <input type="hidden" id="pluginname1" name="name" value="" >
+            <input type="hidden" id="gn1" name="gn" value="" >
+            <div class="modal fade in" id="normalModal1" aria-hidden="false">
+			  	<div class="modal-dialog">
+			    	<div class="modal-content">
+			      		<div class="modal-header">
+			        		<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+			        		<h4 class="modal-title" id="zti">插件配置 - <span class="modal-p1"></span></h4>
+			      		</div>
+			      		<div class="modal-body" id="md1">
+
+
+			      		</div>
+			      		<div class="modal-footer">
+			        		<button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+			        		<button type="submit" class="btn btn-success">确定执行</button>
+			      		</div>
+			    	</div>
+			  	</div>
+			</div>
+            </form>
+
+
+
+            <script>
+                function update(obj){
+                    var data = $(obj).attr('data');
+                    var state= $(obj).attr('state');
+
+                    $.post(window.location.pathname,{update:data,state:state},function(e){
+                        if(e.error){
+                            if(state=='on'){
+                                $(obj).attr('state','off');
+                                $(obj).removeClass("btn-success");
+                                $(obj).addClass("btn-danger");
+                                $(obj).text("已禁用");
+                            }else{
+                                $(obj).attr('state','on');
+                                $(obj).removeClass("btn-danger");
+                                $(obj).addClass("btn-success");
+                                $(obj).text("开启中");
+                            }
+                        }
+
+                    },'json');
+                    return false;
+                }
+            </script>
+
+
+        </div>
+    </div><!-- ENd box  -->
+
+</div>
+</div>
+
+{include footer}

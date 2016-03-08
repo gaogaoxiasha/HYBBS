@@ -1,0 +1,49 @@
+{include h}
+<div class="dashboard-header">
+	<p class="sub-title">站内消息</p>
+	<p class="tip"></p>
+
+	<div class="alert alert-success">没有消息</div>
+
+</div>
+<div class="dashboard-wrapper select-message">
+    <div id="message">
+        <ul class="user-msg">
+            {foreach $mess_data as $v}
+            <li class="tip">
+                <a class="pull-left" href="#">
+                    <img src="{#WWW}{$v.avatar.b}" class="l" style="margin-top: 8px;margin-right:10px;width:45px">
+                </a>
+
+                <div class="message-content">回复内容 : {$v.mess}</div>
+
+                <p class="info">{$v.title} 发布于 <?php echo humandate($v['atime']);?></p>
+            </li>
+            {/foreach}
+
+        </ul>
+        <div class="pagination">
+            {if $pageid!=1}
+            <span class="pg-item" disabled>
+                <a class="page-numbers" href="{php echo WWW.URL('my',$data['user'],EXP.'mess'.EXP.($pageid-1));}">上一页</a>
+            </span>
+            {/if}
+            <?php $tmp = $page_count ; ?>
+            {for $i=($pageid-5 < 1) ? 1 : $pageid -5; $i< (($pageid + 5 > $tmp) ? $tmp+1 : $pageid + 5) ; $i++}
+
+
+            <span class="pg-item ">
+                <{if $pageid == $i}span{else}a{/if} class="page-numbers {if $pageid == $i}current{/if}" href="{php echo WWW.URL('my',$data['user'],EXP.'mess'.EXP.($i));}">
+                    {$i}
+                </{if $pageid == $i}span{else}a{/if}>
+            </span>
+            {/for}
+            {if $pageid!=$page_count}
+            <span class="pg-item" >
+                <a class="next page-numbers" href="{php echo WWW.URL('my',$data['user'],EXP.'mess'.EXP.($pageid+1));}">下一页</a>
+            </span>
+            {/if}
+        </div>
+    </div>
+</div>
+{include f}
